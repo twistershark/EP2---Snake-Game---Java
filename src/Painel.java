@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -21,8 +22,12 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	private Corpo c;
 	private ArrayList<Corpo> snake;
 	
-	private int xCoor = 10, yCoor = 10, size = 5;
+	private Fruta maca;
+	private ArrayList<Fruta> macas;
 	
+	private Random r;
+	
+	private int xCoor = 10, yCoor = 10, size = 5;
 	private int ticks = 0;
 	
 	public Painel() {
@@ -33,6 +38,9 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		addKeyListener(this);
 		
 		snake = new ArrayList<Corpo>();
+		macas = new ArrayList<Fruta>();
+		
+		r = new Random();
 		
 		start();
 		
@@ -77,6 +85,24 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 				snake.remove(0);
 			}
 		}
+		
+		if(macas.size() == 0) {
+			int xCoor = r.nextInt(49);
+			int yCoor = r.nextInt(49);
+			
+			maca = new Fruta(xCoor, yCoor, 10);
+			macas.add(maca);
+		}
+		
+		for (int i = 0; i < macas.size(); i++) {
+			if(xCoor == macas.get(i).getxCoor() && yCoor == macas.get(i).getyCoor()) {
+				size++;
+				macas.remove(i);
+				i++;
+			}
+		}
+		
+		
 	}
 	
 	public void paint(Graphics g) {
@@ -87,6 +113,9 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		
 		for (int i =0; i < snake.size(); i++) {
 			snake.get(i).draw(g);
+		}
+		for (int i = 0; i < macas.size(); i++) {
+			macas.get(i).draw(g);
 		}
 	}
 

@@ -9,9 +9,9 @@ public class Main {
 	
 public Main() {
 		JFrame frame = new JFrame();
-		Launcher launcher = new Launcher();
+		Painel painel = new Painel();
 		
-		frame.add(launcher);
+		frame.add(painel);
 
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

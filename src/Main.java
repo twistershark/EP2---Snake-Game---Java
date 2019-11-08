@@ -9,17 +9,19 @@ public class Main {
 	
 public Main() {
 		JFrame frame = new JFrame();
-		Painel painel = new Painel();
+		Inicializador inic = new Inicializador();
 		
-		frame.add(painel);
-
+		
+		frame.add(inic);
+		
+		
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Snake Game");
 		
 		frame.setVisible(true);
-		frame.setLocationRelativeTo(null);
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 	}
 
 }

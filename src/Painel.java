@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 public class Painel extends JPanel implements Runnable, KeyListener{
 
 	private static final long serialVersionUID = 1L;
-	private static final int LARGURA = 500, ALTURA = 500;
+	private static final int LARGURA = 600, ALTURA = 600;
 	
 	private Thread thread;
 	
@@ -29,8 +29,13 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	
 	private int xCoor = 10, yCoor = 10, size = 5;
 	private int ticks = 0;
+	private int tipo_cobra, colisao_com_paredes;
 	
-	public Painel() {
+	
+	public Painel(int tipo_cobra, int colisao_com_paredes) {
+		this.tipo_cobra = tipo_cobra;
+		this.colisao_com_paredes = colisao_com_paredes;
+		
 		setFocusable(true);
 		
 		
@@ -46,7 +51,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		
 	}
 	
-	public void start() {
+	public synchronized void start() {
 		running = true;
 		thread = new Thread(this);
 		thread.start();
@@ -87,8 +92,8 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		}
 		
 		if(macas.size() == 0) {
-			int xCoor = r.nextInt(49);
-			int yCoor = r.nextInt(49);
+			int xCoor = r.nextInt(59);
+			int yCoor = r.nextInt(59);
 			
 			maca = new Fruta(xCoor, yCoor, 10);
 			macas.add(maca);
@@ -109,7 +114,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 			}
 		}
 		
-		if(xCoor < 0 || xCoor > 49 || yCoor < 0 || yCoor > 49) {
+		if(xCoor < 0 || xCoor > 59 || yCoor < 0 || yCoor > 59) {
 			stop();
 		}
 		

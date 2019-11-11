@@ -18,12 +18,30 @@ import javax.swing.JTextPane;
 
 public class Inicializador extends JPanel implements ActionListener {
 
+
+	public int getTipo_cobra() {
+		return tipo_cobra;
+	}
+
+	public void setTipo_cobra(int tipo_cobra) {
+		this.tipo_cobra = tipo_cobra;
+	}
+
+	public int getColisao_com_paredes() {
+		return colisao_com_paredes;
+	}
+
+	public void setColisao_com_paredes(int colisao_com_paredes) {
+		this.colisao_com_paredes = colisao_com_paredes;
+	}
+
 	private static final long serialVersionUID = 1L;
 
-	// DECLARA��O DE ATRIBUTOS
+	// DECLARACAO DE ATRIBUTOS
 	
-	private int tipo_cobra;
-	private int colisao_com_paredes;
+	private int tipo_cobra = 2;
+	private int colisao_com_paredes = 1;
+
 	
 	public Inicializador() {
 		menu();
@@ -34,166 +52,205 @@ public class Inicializador extends JPanel implements ActionListener {
 		
 		setBackground(Color.WHITE);
 		setLayout(null);
-		
+
 		
 		//TITULO
-		JLabel lblSnakeGame = new JLabel("Snake Game");
-		lblSnakeGame.setFont(new Font("Lucida Handwriting", Font.PLAIN, 30));
-		lblSnakeGame.setBounds(210, -18, 225, 76);
-		add(lblSnakeGame);
+		JLabel titulo_jogo = new JLabel("Snake Game");
+		titulo_jogo.setFont(new Font("Lucida Handwriting", Font.PLAIN, 30));
+		titulo_jogo.setBounds(210, -18, 225, 76);
+		add(titulo_jogo);
 		
-		JLabel lblEscolhaOTipo = new JLabel("Escolha o tipo de cobra:");
-		lblEscolhaOTipo.setFont(new Font("Helvetica", Font.PLAIN, 15));
-		lblEscolhaOTipo.setBounds(220, 69, 158, 25);
-		add(lblEscolhaOTipo);
+		JLabel FraseTipoCobra = new JLabel("Escolha o tipo de cobra:");
+		FraseTipoCobra.setFont(new Font("Helvetica", Font.PLAIN, 15));
+		FraseTipoCobra.setBounds(220, 69, 158, 25);
+		add(FraseTipoCobra);
 		
 		
 		//IMAGENS DAS COBRAS
-		JLabel kitty_label = new JLabel("New label");
+		JLabel imagemKitty = new JLabel("New label");
 		Image kitty = new ImageIcon(this.getClass().getResource("/kitty.png")).getImage();
-		kitty_label.setIcon(new ImageIcon(kitty));
-		kitty_label.setBounds(30, 113, 131, 135);
-		add(kitty_label);
+		imagemKitty.setIcon(new ImageIcon(kitty));
+		imagemKitty.setBounds(30, 113, 131, 135);
+		add(imagemKitty);
 		
-		JLabel comum_label = new JLabel("New label");
+		JLabel imagemComum = new JLabel("New label");
 		Image comum = new ImageIcon(this.getClass().getResource("/comum.png")).getImage();
-		comum_label.setIcon(new ImageIcon(comum));
-		comum_label.setBounds(230, 113, 131, 135);
-		add(comum_label);
+		imagemComum.setIcon(new ImageIcon(comum));
+		imagemComum.setBounds(230, 113, 131, 135);
+		add(imagemComum);
 
 		
-		JLabel star_label = new JLabel("New label");
+		JLabel imagemStar = new JLabel("New label");
 		Image star = new ImageIcon(this.getClass().getResource("/star.png")).getImage();
-		star_label.setIcon(new ImageIcon(star));
-		star_label.setBounds(430, 113, 131, 135);
-		add(star_label);
+		imagemStar.setIcon(new ImageIcon(star));
+		imagemStar.setBounds(430, 113, 131, 135);
+		add(imagemStar);
 		
 		
 		//NOMES E INFO SOBRE AS COBRAS
-		JLabel txtpnKitty = new JLabel("Kitty - Fácil");
-		txtpnKitty.setFont(new Font("Helvetica", Font.BOLD, 12));
-		txtpnKitty.setBounds(63, 247, 86, 20);
-		add(txtpnKitty);
+		JLabel infoKitty = new JLabel("Kitty - Easy");
+		infoKitty.setFont(new Font("Helvetica", Font.BOLD, 12));
+		infoKitty.setBounds(63, 247, 86, 20);
+		add(infoKitty);
 		
-		JLabel txtpnComum = new JLabel("Comum - Normal");
-		txtpnComum.setFont(new Font("Helvetica", Font.BOLD, 12));
-		txtpnComum.setBounds(245, 247, 107, 20);
-		add(txtpnComum);
+		JLabel infoComum = new JLabel("Comum - Normal");
+		infoComum.setFont(new Font("Helvetica", Font.BOLD, 12));
+		infoComum.setBounds(245, 247, 107, 20);
+		add(infoComum);
 		
-		JLabel txtpnStar = new JLabel("Star - Difícil");
-		txtpnStar.setFont(new Font("Helvetica", Font.BOLD, 12));
-		txtpnStar.setBounds(463, 247, 77, 20);
-		add(txtpnStar);
+		JLabel infoStar = new JLabel("Star - Hard");
+		infoStar.setFont(new Font("Helvetica", Font.BOLD, 12));
+		infoStar.setBounds(463, 247, 77, 20);
+		add(infoStar);
 		
-		JLabel txtpnSemHabilidadesEspeciais = new JLabel("Sem habilidades especiais");
-		txtpnSemHabilidadesEspeciais.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		txtpnSemHabilidadesEspeciais.setBounds(220, 270, 200, 20);
-		add(txtpnSemHabilidadesEspeciais);
+		JLabel powerNormal = new JLabel("Sem habilidades especiais");
+		powerNormal.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		powerNormal.setBounds(220, 270, 200, 20);
+		add(powerNormal);
 		
-		JLabel txtpnAtravessaBarreiras = new JLabel("Atravessa barreiras");
-		txtpnAtravessaBarreiras.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		txtpnAtravessaBarreiras.setBounds(40, 270, 150, 20);
-		add(txtpnAtravessaBarreiras);
+		JLabel powerKitty = new JLabel("Atravessa barreiras");
+		powerKitty.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		powerKitty.setBounds(40, 270, 150, 20);
+		add(powerKitty);
 		
-		JLabel txtpnDobroDePontos = new JLabel("Dobro de pontos");
-		txtpnDobroDePontos.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		txtpnDobroDePontos.setBounds(450, 270, 120, 20);
-		add(txtpnDobroDePontos);
+		JLabel powerStar = new JLabel("Dobro de pontos");
+		powerStar.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		powerStar.setBounds(450, 270, 120, 20);
+		add(powerStar);
 		
 		
 		//RADIOBUTTON DE SELECAO DE COBRAS
 		ButtonGroup grupobutton = new ButtonGroup();
 		
-		JRadioButton kitty_rb = new JRadioButton("");
-		kitty_rb.setBackground(Color.WHITE);
-		kitty_rb.setBounds(80, 297, 25, 23);
-		add(kitty_rb);
+		JRadioButton kitty_botao = new JRadioButton("");
+		kitty_botao.setBackground(Color.WHITE);
+		kitty_botao.setBounds(80, 297, 25, 23);
+		kitty_botao.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setTipo_cobra(1);
+				kitty_botao.setSelected(true);	
+			}
+		});
+		add(kitty_botao);
 		
-		JRadioButton comum_rb = new JRadioButton("");
-		comum_rb.setBackground(Color.WHITE);
-		comum_rb.setSelected(true);
-		comum_rb.setBounds(280, 297, 25, 23);
-		add(comum_rb);
+		JRadioButton comum_botao = new JRadioButton("");
+		comum_botao.setBackground(Color.WHITE);
+		comum_botao.setSelected(true);
+		comum_botao.setBounds(280, 297, 25, 23);
+		comum_botao.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setTipo_cobra(2);
+				comum_botao.setSelected(true);	
+			}
+		});
+		add(comum_botao);
 		
-		JRadioButton star_rb = new JRadioButton("");
-		star_rb.setBackground(Color.WHITE);
-		star_rb.setBounds(480, 297, 25, 23);
-		add(star_rb);
+		JRadioButton star_botao = new JRadioButton("");
+		star_botao.setBackground(Color.WHITE);
+		star_botao.setBounds(480, 297, 25, 23);
+		star_botao.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setTipo_cobra(3);
+				star_botao.setSelected(true);	
+			}	
+		});
+		add(star_botao);
 		
-		grupobutton.add(kitty_rb);
-		grupobutton.add(comum_rb);
-		grupobutton.add(star_rb);
+		grupobutton.add(kitty_botao);
+		grupobutton.add(comum_botao);
+		grupobutton.add(star_botao);
 		
 		
 		//COLISOES
-		JLabel colisoes_label = new JLabel("Colisão com as paredes?");
-		colisoes_label.setFont(new Font("Helvetica", Font.BOLD, 12));
-		colisoes_label.setBounds(32, 352, 158, 14);
-		add(colisoes_label);
+		JLabel fraseColisoes = new JLabel("Colisao com as paredes?");
+		fraseColisoes.setFont(new Font("Helvetica", Font.BOLD, 12));
+		fraseColisoes.setBounds(32, 352, 158, 14);
+		add(fraseColisoes);
 		
-		ButtonGroup colisaogrupo = new ButtonGroup();
+		ButtonGroup grupo_colisao = new ButtonGroup();
 		
-		JRadioButton sim_rb = new JRadioButton("Sim");
-		sim_rb.setSelected(true);
-		sim_rb.setBackground(Color.WHITE);
-		sim_rb.setBounds(183, 348, 60, 23);
-		add(sim_rb);
+		JRadioButton sim_botao = new JRadioButton("Sim");
+		sim_botao.setSelected(true);
+		sim_botao.setBackground(Color.WHITE);
+		sim_botao.setBounds(183, 348, 50, 23);
+		sim_botao.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setColisao_com_paredes(1);
+				sim_botao.setSelected(true);				
+			}	
+		});
+		add(sim_botao);
 		
-		JRadioButton nao_rb = new JRadioButton("Não");
-		nao_rb.setBackground(Color.WHITE);
-		nao_rb.setBounds(233, 348, 109, 23);
-		add(nao_rb);
+		JRadioButton nao_botao = new JRadioButton("Nao");
+		nao_botao.setBackground(Color.WHITE);
+		nao_botao.setBounds(236, 348, 109, 23);
+		nao_botao.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setColisao_com_paredes(0);
+				nao_botao.setSelected(true);				
+			}	
+		});
+		add(nao_botao);
 		
-		colisaogrupo.add(sim_rb);
-		colisaogrupo.add(nao_rb);
-		
+		grupo_colisao.add(sim_botao);
+		grupo_colisao.add(nao_botao);
 		
 		
 		//INFO SOBRE AS DIFERENTES FRUTAS
-		JLabel lblTiposDeFrutas = new JLabel("Tipos de frutas");
-		lblTiposDeFrutas.setFont(new Font("Helvetica", Font.BOLD, 18));
-		lblTiposDeFrutas.setBounds(240, 390, 140, 42);
-		add(lblTiposDeFrutas);
+		JLabel fraseFrutas = new JLabel("Tipos de frutas");
+		fraseFrutas.setFont(new Font("Helvetica", Font.BOLD, 18));
+		fraseFrutas.setBounds(240, 390, 140, 42);
+		add(fraseFrutas);
 		
-		JLabel lblVermelha = new JLabel("Vermelha");
-		lblVermelha.setFont(new Font("Helvetica", Font.BOLD, 15));
-		lblVermelha.setBounds(120, 457, 70, 14);
-		add(lblVermelha);
+		JLabel frutaVermelha = new JLabel("Vermelha");
+		frutaVermelha.setFont(new Font("Helvetica", Font.BOLD, 15));
+		frutaVermelha.setBounds(120, 457, 70, 14);
+		add(frutaVermelha);
 		
-		JLabel lblFrutaComum = new JLabel(" - Fruta comum");
-		lblFrutaComum.setBounds(190, 457, 120, 14);
-		lblFrutaComum.setFont(new Font("Helvetica", Font.PLAIN, 15));
-		add(lblFrutaComum);
+		JLabel infoVermelha = new JLabel(" - Fruta comum");
+		infoVermelha.setBounds(190, 457, 120, 14);
+		infoVermelha.setFont(new Font("Helvetica", Font.PLAIN, 15));
+		add(infoVermelha);
 		
-		JLabel lblAmarela = new JLabel("Amarela");
-		lblAmarela.setFont(new Font("Helvetica", Font.BOLD, 15));
-		lblAmarela.setBounds(120, 475, 80, 14);
-		add(lblAmarela);
+		JLabel frutaAmarela = new JLabel("Amarela");
+		frutaAmarela.setFont(new Font("Helvetica", Font.BOLD, 15));
+		frutaAmarela.setBounds(120, 475, 80, 14);
+		add(frutaAmarela);
 		
-		JLabel lblDobroDe = new JLabel(" - Dobro de pontos");
-		lblDobroDe.setBounds(180, 475, 140, 14);
-		lblDobroDe.setFont(new Font("Helvetica", Font.PLAIN, 15));
-		add(lblDobroDe);
+		JLabel infoAmarela = new JLabel(" - Dobro de pontos");
+		infoAmarela.setBounds(180, 475, 140, 14);
+		infoAmarela.setFont(new Font("Helvetica", Font.PLAIN, 15));
+		add(infoAmarela);
 		
-		JLabel lblVerde = new JLabel("Verde");
-		lblVerde.setFont(new Font("Helvetica", Font.BOLD, 15));
-		lblVerde.setBounds(330, 457, 46, 14);
-		add(lblVerde);
+		JLabel frutaVerde = new JLabel("Verde");
+		frutaVerde.setFont(new Font("Helvetica", Font.BOLD, 15));
+		frutaVerde.setBounds(330, 457, 46, 14);
+		add(frutaVerde);
 		
-		JLabel lblReiniciaTamanho = new JLabel(" - Reinicia tamanho da cobra");
-		lblReiniciaTamanho.setBounds(370, 457, 210, 14);
-		lblReiniciaTamanho.setFont(new Font("Helvetica", Font.PLAIN, 15));
-		add(lblReiniciaTamanho);
+		JLabel infoVerde = new JLabel(" - Reinicia tamanho da cobra");
+		infoVerde.setBounds(370, 457, 210, 14);
+		infoVerde.setFont(new Font("Helvetica", Font.PLAIN, 15));
+		add(infoVerde);
 		
-		JLabel lblPreta = new JLabel("Preta");
-		lblPreta.setFont(new Font("Helvetica", Font.BOLD, 15));
-		lblPreta.setBounds(330, 475, 46, 14);
-		add(lblPreta);
+		JLabel frutaPreta = new JLabel("Preta");
+		frutaPreta.setFont(new Font("Helvetica", Font.BOLD, 15));
+		frutaPreta.setBounds(330, 475, 46, 14);
+		add(frutaPreta);
 		
-		JLabel lblMataA = new JLabel(" - Mata a cobra");
-		lblMataA.setBounds(370, 475, 160, 14);
-		lblMataA.setFont(new Font("Helvetica", Font.PLAIN, 15));
-		add(lblMataA);
+		JLabel infoPreta = new JLabel(" - Mata a cobra");
+		infoPreta.setBounds(370, 475, 160, 14);
+		infoPreta.setFont(new Font("Helvetica", Font.PLAIN, 15));
+		add(infoPreta);
 		
 		
 		//JBUTTON PARA INICIAR O JOGO
@@ -206,51 +263,24 @@ public class Inicializador extends JPanel implements ActionListener {
 				JFrame jogo = new JFrame();
 				Painel painel =  new Painel(tipo_cobra, colisao_com_paredes);
 				
-				jogo.add(painel);
-				
+				jogo.add(painel);	
 				jogo.setResizable(false);
 				jogo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				jogo.setTitle("Snake Game");
-				
 				jogo.setVisible(true);
 				jogo.pack();
-				jogo.setLocationRelativeTo(null);
-				
+				jogo.setLocationRelativeTo(null);		
 			}
 		});		
 		start.setFont(new Font("Helvetica", Font.ITALIC, 20));
 		start.setBounds(150, 519, 297, 44);
 		add(start);
-		
-		
-		//VERIFICAR TIPO DE COBRA SELECIONADO
-		if(kitty_rb.isSelected()) {
-			tipo_cobra = 1;
-		}
-		else if(comum_rb.isSelected()) {
-			tipo_cobra = 2;
-		}
-		else if(star_rb.isSelected()) {
-			tipo_cobra = 2;
-		}
-		
-		// VERIFICAR SE COLISÃO ESTÁ ATIVA
-		if(sim_rb.isSelected()) {
-			colisao_com_paredes = 1;
-		}
-		else if (nao_rb.isSelected()) {
-			colisao_com_paredes = 0;
-		}
-		
-		
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-
 }
 
 	

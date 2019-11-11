@@ -29,15 +29,14 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	
 	private int xCoor = 10, yCoor = 10, size = 5;
 	private int ticks = 0;
-	private int tipo_cobra, colisao_com_paredes;
+	private int tipoCobra, colisaoComParedes;
 	
 	
 	public Painel(int tipo_cobra, int colisao_com_paredes) {
-		this.tipo_cobra = tipo_cobra;
-		this.colisao_com_paredes = colisao_com_paredes;
+		this.tipoCobra = tipo_cobra;
+		this.colisaoComParedes = colisao_com_paredes;
 		
 		setFocusable(true);
-		
 		
 		setPreferredSize(new Dimension(LARGURA, ALTURA));
 		addKeyListener(this);
@@ -47,8 +46,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		
 		r = new Random();
 		
-		start();
-		
+		start();	
 	}
 	
 	public synchronized void start() {
@@ -69,7 +67,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	
 	public void tick() {
 		if (snake.size() == 0) {
-			c = new Corpo(xCoor, yCoor, 10, 1);
+			c = new Corpo(xCoor, yCoor, 10, tipoCobra);
 			snake.add(c);
 		}		
 		
@@ -79,7 +77,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 			if(baixo) yCoor++;
 			
 			
-			c = new Corpo(xCoor, yCoor, 10, 1);
+			c = new Corpo(xCoor, yCoor, 10, tipoCobra);
 			snake.add(c);
 			
 			if(snake.size() > size) {
@@ -108,11 +106,27 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 				}
 			}
 		}
-		
-		if(xCoor < 0 || xCoor > 59 || yCoor < 0 || yCoor > 59) {
-			stop();
+		if(colisaoComParedes == 1) {
+			if(xCoor < 0 || xCoor > 59 || yCoor < 0 || yCoor > 59) {
+				stop();
+			}
 		}
-		
+		else if(colisaoComParedes == 0) {
+			if(xCoor < 0 || xCoor > 59 || yCoor < 0 || yCoor > 59) {
+				if(xCoor < 0) {
+					xCoor = 59;
+				}
+				if(xCoor > 59) {
+					xCoor = 0;
+				}
+				if(yCoor < 0) {
+					yCoor = 59;
+				}
+				if(yCoor > 59) {
+					yCoor = 0;
+				}
+			}
+		}
 		
 	}
 	
@@ -132,16 +146,25 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 
 	// CONTROLE DE FPS -- 20FPS = NORMAL / 30FPS = Difícil
 	
-	private long FPS = 30;
+
+	private long FPS;
 	private long startTime;
 	private long URDTimeMillis;
 	private long waitTime;
-	private long targetTime = 1000/ FPS;
+	private long targetTime;
 	
 	@Override
 	public void run() {
+		
+		if(tipoCobra == 1 || tipoCobra == 2) {
+			FPS = 20;
+		}
+		else if(tipoCobra == 3) {
+			FPS = 30;
+		}
+		targetTime = 1000/ FPS;
+		
 		while(running) {
-			
 			startTime = System.nanoTime();
 			
 			tick();
@@ -194,6 +217,4 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 }

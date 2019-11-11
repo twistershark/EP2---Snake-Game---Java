@@ -34,7 +34,6 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	
 	private int xCoor = 10, yCoor = 10, size = 5;
 	private int tipoCobra, colisaoComParedes;
-	private int tipoFruta;
 	
 	private int score = 0;
 	
@@ -62,6 +61,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		running = true;
 		thread = new Thread(this);
 		thread.start();
+
 	}
 	
 	public void stop() {
@@ -76,11 +76,13 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	public void tick() {
+		
+		//GERADOR DE SNAKE
 		if (snake.size() == 0) {
 			c = new Corpo(xCoor, yCoor, 10, tipoCobra);
 			snake.add(c);
 		}		
-		
+		//MOVIMENTAÇÃO
 			if(direita) xCoor++;
 			if(esquerda) xCoor--;
 			if(cima) yCoor--;
@@ -92,27 +94,28 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 			
 			if(snake.size() > size) {
 				snake.remove(0);
-			}
-		
-		if(macas.size() == 0) {
-			int xCoor = r.nextInt(59);
-			int yCoor = r.nextInt(59);
+			}		
 			
-			maca = new Fruta(xCoor, yCoor, 10, 1);
-			macas.add(maca);
-		}
-		
-		// FRUTAS ESPECIAIS
-		if(powerup.size() == 0) {
-		int tipo_Power = tipoPower.nextInt(4 - 2 + 1) + 2;
-		
-		int xCoor2 = p.nextInt(59);
-		int yCoor2 = p.nextInt(59);
-		
-		especial = new Fruta(xCoor2, yCoor2, 10, tipo_Power);
-		powerup.add(especial);
-		}
-		
+		// GERADOR DE FRUTAS NORMAIS
+	
+			if(macas.size() == 0) {
+				int xCoor = r.nextInt(59);
+				int yCoor = r.nextInt(59);
+
+				maca = new Fruta(xCoor, yCoor, 10, 1);
+				macas.add(maca);
+			}
+
+		// GERADOR DE FRUTAS ESPECIAIS
+			if(powerup.size() == 0) {
+				int tipo_Power = tipoPower.nextInt(4 - 2 + 1) + 2;
+
+				int xCoor2 = p.nextInt(59);
+				int yCoor2 = p.nextInt(59);
+
+				especial = new Fruta(xCoor2, yCoor2, 10, tipo_Power);
+				powerup.add(especial);
+			}
 		
 		// COLISÃO COM FRUTAS NORMAIS
 		for (int i = 0; i < macas.size(); i++) {
@@ -133,7 +136,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 					powerup.remove(i);
 					i++; 	
 				}
-				else if(powerup.get(i).getTipoFruta() == 3 || powerup.get(i).getTipoFruta() == 4) {
+				else if(powerup.get(i).getTipoFruta() == 3) {
 					snake.clear();
 					size = 5;
 					c = new Corpo(xCoor, yCoor, 10, tipoCobra);
@@ -141,15 +144,13 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 					powerup.remove(i);
 					i++;	
 				}
-				//else if(powerup.get(i).getTipoFruta() == 4) {
-					//stop();
-				//}
-				
-				
+				else if(powerup.get(i).getTipoFruta() == 4) {
+					stop();
+				}	
 			}
 		}
 		
-		//Colisão com o corpo
+		//COLIÃO COM O CORPO
 		for(int i = 0; i < snake.size(); i++) {
 			if(xCoor == snake.get(i).getxCoor() && yCoor == snake.get(i).getyCoor()) {
 				if(i != snake.size() - 1) {
@@ -158,7 +159,19 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 			}
 		}
 		
-		// Colisão com as bordas do jogo
+		//COLISAO COM BARREIRAS
+		if(tipoCobra == 2 || tipoCobra == 3) {
+			for(int i = 0; i < snake.size(); i++) {
+				for(int j = 0; j < 10; j++) {
+					if(snake.get(i).getxCoor() == 30 && snake.get(i).getyCoor() == j + 10 || snake.get(i).getxCoor() == 30 && snake.get(i).getyCoor() == j + 35
+							|| snake.get(i).getxCoor() == 31 && snake.get(i).getyCoor() == j + 10 || snake.get(i).getxCoor() == 31 && snake.get(i).getyCoor() == j + 35) {
+						stop();
+					}
+				}	
+			}
+		}
+		
+		// COLISÃO COM AS BORDAS DO JOGO
 		if(colisaoComParedes == 1) {
 			if(xCoor < 0 || xCoor > 59 || yCoor < 0 || yCoor > 59) {
 				stop();
@@ -186,7 +199,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	public void paint(Graphics g) {
 		g.clearRect(0, 0, LARGURA, ALTURA);
 		
-		g.setColor(Color.white);
+		g.setColor(Color.gray);
 		g.fillRect(0, 0, LARGURA, ALTURA);
 		
 		for (int i =0; i < snake.size(); i++) {
@@ -197,6 +210,12 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		}
 		for (int i = 0; i < powerup.size(); i++) {
 			powerup.get(i).draw(g);
+		}
+		//BARREIRAS
+		g.setColor(Color.blue);
+		for(int i = 0; i < 10; i++) {
+			g.fillRect(300, i + 100, 20, 120);
+			g.fillRect(300, i + 350, 20, 120);
 		}
 	}
 
@@ -224,7 +243,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 			startTime = System.nanoTime();
 			
 			tick();
-			repaint();    
+			repaint();   
 				
 			URDTimeMillis = (System.nanoTime() - startTime) / 1000000;
 			waitTime = targetTime - URDTimeMillis;

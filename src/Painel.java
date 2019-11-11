@@ -69,27 +69,22 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	
 	public void tick() {
 		if (snake.size() == 0) {
-			c = new Corpo(xCoor, yCoor, 10);
+			c = new Corpo(xCoor, yCoor, 10, 1);
 			snake.add(c);
-		}
+		}		
 		
-		ticks++;
-		
-		if(ticks > 300000) {
 			if(direita) xCoor++;
 			if(esquerda) xCoor--;
 			if(cima) yCoor--;
 			if(baixo) yCoor++;
 			
-			ticks = 0;
 			
-			c = new Corpo(xCoor, yCoor, 10);
+			c = new Corpo(xCoor, yCoor, 10, 1);
 			snake.add(c);
 			
 			if(snake.size() > size) {
 				snake.remove(0);
 			}
-		}
 		
 		if(macas.size() == 0) {
 			int xCoor = r.nextInt(59);
@@ -124,7 +119,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	public void paint(Graphics g) {
 		g.clearRect(0, 0, LARGURA, ALTURA);
 		
-		g.setColor(Color.BLACK);
+		g.setColor(Color.white);
 		g.fillRect(0, 0, LARGURA, ALTURA);
 		
 		for (int i =0; i < snake.size(); i++) {
@@ -135,13 +130,32 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		}
 	}
 
+	// CONTROLE DE FPS -- 20FPS = NORMAL / 30FPS = Difícil
+	
+	private long FPS = 30;
+	private long startTime;
+	private long URDTimeMillis;
+	private long waitTime;
+	private long targetTime = 1000/ FPS;
+	
 	@Override
 	public void run() {
 		while(running) {
+			
+			startTime = System.nanoTime();
+			
 			tick();
-			repaint();
-		}
-		
+			repaint();    
+				
+			URDTimeMillis = (System.nanoTime() - startTime) / 1000000;
+			waitTime = targetTime - URDTimeMillis;
+			
+			try {
+				Thread.sleep(waitTime);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}	
 	}
 
 	@Override

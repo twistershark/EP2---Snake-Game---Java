@@ -24,11 +24,17 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	
 	private Fruta maca;
 	private ArrayList<Fruta> macas;
+	private Fruta especial;
+	private ArrayList<Fruta> powerup;
 	
 	private Random r;
+	private Random tipoPower;
+	private Random p;
+
 	
 	private int xCoor = 10, yCoor = 10, size = 5;
 	private int tipoCobra, colisaoComParedes;
+	private int tipoFruta;
 	
 	private int score = 0;
 	
@@ -43,8 +49,11 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		
 		snake = new ArrayList<Corpo>();
 		macas = new ArrayList<Fruta>();
+		powerup = new ArrayList<Fruta>();
 		
 		r = new Random();
+		p = new Random();	
+		tipoPower = new Random();
 		
 		start();	
 	}
@@ -56,7 +65,6 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	public void stop() {
-		System.out.println(score);
 		running = false;
 		try {
 			thread.join();
@@ -90,17 +98,54 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 			int xCoor = r.nextInt(59);
 			int yCoor = r.nextInt(59);
 			
-			maca = new Fruta(xCoor, yCoor, 10);
+			maca = new Fruta(xCoor, yCoor, 10, 1);
 			macas.add(maca);
 		}
 		
-		// Colisão com frutas
+		// FRUTAS ESPECIAIS
+		if(powerup.size() == 0) {
+		int tipo_Power = tipoPower.nextInt(4 - 2 + 1) + 2;
+		
+		int xCoor2 = p.nextInt(59);
+		int yCoor2 = p.nextInt(59);
+		
+		especial = new Fruta(xCoor2, yCoor2, 10, tipo_Power);
+		powerup.add(especial);
+		}
+		
+		
+		// COLISÃO COM FRUTAS NORMAIS
 		for (int i = 0; i < macas.size(); i++) {
 			if(xCoor == macas.get(i).getxCoor() && yCoor == macas.get(i).getyCoor()) {
 				size++;
 				score = score + 10;
 				macas.remove(i);
 				i++; 
+			}
+		}
+		
+		// COLISÕES COM FRUTAS ESPECIAIS
+		for (int i = 0; i < powerup.size(); i++) {
+			if(xCoor == powerup.get(i).getxCoor() && yCoor == powerup.get(i).getyCoor()) {
+				if(powerup.get(i).getTipoFruta() == 2) {
+					size++;
+					score = score + 20;
+					powerup.remove(i);
+					i++; 	
+				}
+				else if(powerup.get(i).getTipoFruta() == 3 || powerup.get(i).getTipoFruta() == 4) {
+					snake.clear();
+					size = 5;
+					c = new Corpo(xCoor, yCoor, 10, tipoCobra);
+					snake.add(c);
+					powerup.remove(i);
+					i++;	
+				}
+				//else if(powerup.get(i).getTipoFruta() == 4) {
+					//stop();
+				//}
+				
+				
 			}
 		}
 		
@@ -149,6 +194,9 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		}
 		for (int i = 0; i < macas.size(); i++) {
 			macas.get(i).draw(g);
+		}
+		for (int i = 0; i < powerup.size(); i++) {
+			powerup.get(i).draw(g);
 		}
 	}
 

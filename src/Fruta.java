@@ -3,15 +3,24 @@ import java.awt.Graphics;
 
 public class Fruta {
 
-private int xCoor, yCoor, largura, altura;
+private int xCoor, yCoor, largura, altura, tipoFruta;
 	
-	public Fruta(int xCoor, int yCoor, int tileSize) {
+	public Fruta(int xCoor, int yCoor, int tileSize, int tipoFruta) {
 		this.xCoor = xCoor;
 		this.yCoor = yCoor;
+		this.tipoFruta = tipoFruta;
 		largura = tileSize;
 		altura = tileSize;
 	}
 	
+	public int getTipoFruta() {
+		return tipoFruta;
+	}
+
+	public void setTipoFruta(int tipoFruta) {
+		this.tipoFruta = tipoFruta;
+	}
+
 	public void tick() {
 		
 	}
@@ -33,8 +42,27 @@ private int xCoor, yCoor, largura, altura;
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillRect(xCoor * largura, yCoor * altura, largura, altura);
+		if(tipoFruta == 1) {
+			g.setColor(Color.RED);
+			g.fillRect(xCoor * largura, yCoor * altura, largura, altura);
+		}
+		else if(tipoFruta == 2) {
+			g.setColor(Color.YELLOW);
+			g.fillRect(xCoor * largura, yCoor * altura, largura, altura);
+		}
+		else if(tipoFruta == 3) {
+			g.setColor(Color.GREEN);
+			g.fillRect(xCoor * largura, yCoor * altura, largura, altura);
+		}
+		else if(tipoFruta == 4) {
+			g.setColor(Color.BLACK);
+			g.fillRect(xCoor * largura, yCoor * altura, largura, altura);
+		}
+		else if(tipoFruta == 0){
+			g.setColor(Color.RED);
+			g.fillRect(xCoor * largura, yCoor * altura, largura, altura);
+		}
+		
 	}
 	
 }

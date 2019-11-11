@@ -28,9 +28,9 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	private Random r;
 	
 	private int xCoor = 10, yCoor = 10, size = 5;
-	private int ticks = 0;
 	private int tipoCobra, colisaoComParedes;
 	
+	private int score = 0;
 	
 	public Painel(int tipo_cobra, int colisao_com_paredes) {
 		this.tipoCobra = tipo_cobra;
@@ -56,6 +56,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	public void stop() {
+		System.out.println(score);
 		running = false;
 		try {
 			thread.join();
@@ -63,6 +64,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public void tick() {
@@ -92,13 +94,17 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 			macas.add(maca);
 		}
 		
+		// Colisão com frutas
 		for (int i = 0; i < macas.size(); i++) {
 			if(xCoor == macas.get(i).getxCoor() && yCoor == macas.get(i).getyCoor()) {
 				size++;
+				score = score + 10;
 				macas.remove(i);
 				i++; 
 			}
 		}
+		
+		//Colisão com o corpo
 		for(int i = 0; i < snake.size(); i++) {
 			if(xCoor == snake.get(i).getxCoor() && yCoor == snake.get(i).getyCoor()) {
 				if(i != snake.size() - 1) {
@@ -106,6 +112,8 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 				}
 			}
 		}
+		
+		// Colisão com as bordas do jogo
 		if(colisaoComParedes == 1) {
 			if(xCoor < 0 || xCoor > 59 || yCoor < 0 || yCoor > 59) {
 				stop();

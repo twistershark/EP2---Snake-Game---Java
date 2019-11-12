@@ -177,7 +177,7 @@ public class Inicializador extends JPanel implements ActionListener {
 		JRadioButton sim_botao = new JRadioButton("Sim");
 		sim_botao.setSelected(true);
 		sim_botao.setBackground(Color.WHITE);
-		sim_botao.setBounds(183, 348, 50, 23);
+		sim_botao.setBounds(183, 348, 70, 23);
 		sim_botao.addActionListener(new ActionListener() {
 
 			@Override
@@ -190,7 +190,7 @@ public class Inicializador extends JPanel implements ActionListener {
 		
 		JRadioButton nao_botao = new JRadioButton("Nao");
 		nao_botao.setBackground(Color.WHITE);
-		nao_botao.setBounds(236, 348, 109, 23);
+		nao_botao.setBounds(250, 348, 109, 23);
 		nao_botao.addActionListener(new ActionListener() {
 
 			@Override

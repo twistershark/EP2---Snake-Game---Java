@@ -12,6 +12,9 @@ Projeto de Orientação a Objetos do Professor Renato.
     <li>3 tipos de dificuldades</li>
     <li>Possibilidade de ativar/desativar colisão com as paredes</li>
 </ul>
+<h3>Requisitos</h3>
+É necessário a instalação do Java SE Runtime Environment 8 ou superior no computador.
+Link para download do Java SE Runtime Environment 8: https://www.oracle.com/technetwork/pt/java/javase/downloads/jre8-downloads-2133155.html
 
 <h3>Como executar</h3>
 

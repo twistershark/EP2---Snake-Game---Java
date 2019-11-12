@@ -93,7 +93,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	
 		// GERADOR DE FRUTAS NORMAIS
 		if(macas.size() == 0) {
-
+			
 			int xCoor = r.nextInt(59);
 			int yCoor = r.nextInt(59);
 			
@@ -101,6 +101,10 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 				if(xCoor == 30 && yCoor == i + 10 || xCoor == 30 && yCoor == i + 35|| xCoor == 31 && yCoor == i + 10 || xCoor == 31 && yCoor == i + 35) {
 					xCoor = r.nextInt(59);
 					yCoor = r.nextInt(59);
+					while(xCoor == 30 && yCoor == i + 10 || xCoor == 30 && yCoor == i + 35|| xCoor == 31 && yCoor == i + 10 || xCoor == 31 && yCoor == i + 35) {
+						xCoor = r.nextInt(59);
+						yCoor = r.nextInt(59);
+					}
 				}
 			}
 			
@@ -121,6 +125,10 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 				if(xCoor2 == 30 && yCoor2 == j + 10 || xCoor2 == 30 && yCoor2 == j + 35|| xCoor2 == 31 && yCoor2 == j + 10 || xCoor2 == 31 && yCoor2 == j + 35) {
 					xCoor2 = r.nextInt(59);
 					yCoor2 = r.nextInt(59);
+					while(xCoor2 == 30 && yCoor2 == j + 10 || xCoor2 == 30 && yCoor2 == j + 35|| xCoor2 == 31 && yCoor2 == j + 10 || xCoor2 == 31 && yCoor2 == j + 35) {
+						xCoor2 = r.nextInt(59);
+						yCoor2 = r.nextInt(59);
+					}
 				}
 			}
 

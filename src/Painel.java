@@ -141,10 +141,19 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		// COLISÃO COM FRUTAS NORMAIS
 		for (int i = 0; i < macas.size(); i++) {
 			if(xCoor == macas.get(i).getxCoor() && yCoor == macas.get(i).getyCoor()) {
-				size++;
-				score = score + 10;
-				macas.remove(i);
-				i++; 
+				if(tipoCobra == 1 || tipoCobra == 2) {
+					size++;
+					score = score + 10;
+					macas.remove(i);
+					i++; 
+				}
+				else if(tipoCobra == 3) {
+					size++;
+					score = score + 20;
+					macas.remove(i);
+					i++; 
+				}
+				
 			}
 			long tempo_atual1 = System.nanoTime();
 			if(((tempo_atual1 - tempo_anterior1) / 1000000000) > 10) {
@@ -157,10 +166,19 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		for (int i = 0; i < powerup.size(); i++) {
 			if(xCoor == powerup.get(i).getxCoor() && yCoor == powerup.get(i).getyCoor()) {
 				if(powerup.get(i).getTipoFruta() == 2) {
-					size++;
-					score = score + 20;
-					powerup.remove(i);
-					i++; 	
+					if(tipoCobra == 1 || tipoCobra == 2) {
+						size++;
+						score = score + 20;
+						powerup.remove(i);
+						i++;
+					}
+					else if(tipoCobra == 3) {
+						size++;
+						score = score + 40;
+						powerup.remove(i);
+						i++;
+					}
+					 	
 				}
 				else if(powerup.get(i).getTipoFruta() == 3) {
 					snake.clear();
@@ -182,7 +200,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 			
 		}
 		
-		//COLIÃO COM O CORPO
+		//COLISÃO COM O CORPO
 		for(int i = 0; i < snake.size(); i++) {
 			if(xCoor == snake.get(i).getxCoor() && yCoor == snake.get(i).getyCoor()) {
 				if(i != snake.size() - 1) {

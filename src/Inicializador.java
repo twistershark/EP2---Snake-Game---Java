@@ -61,7 +61,7 @@ public class Inicializador extends JPanel implements ActionListener {
 		
 		JLabel FraseTipoCobra = new JLabel("Escolha o tipo de cobra:");
 		FraseTipoCobra.setFont(new Font("Helvetica", Font.PLAIN, 15));
-		FraseTipoCobra.setBounds(220, 69, 158, 25);
+		FraseTipoCobra.setBounds(220, 69, 200, 25);
 		add(FraseTipoCobra);
 		
 		

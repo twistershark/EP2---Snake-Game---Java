@@ -257,9 +257,7 @@ public class Inicializador extends JPanel implements ActionListener {
 		start.setText("START");
 		start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-	      
-
-				
+	     	
 				Painel painel =  new Painel(tipo_cobra, colisao_com_paredes);
 				
 				jogo.add(painel);	
@@ -280,10 +278,7 @@ public class Inicializador extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub	
 	}
-	
-	public static void deletaJogoFrame() {
-		jogo.dispose();
-	}
+
 }
 
 	

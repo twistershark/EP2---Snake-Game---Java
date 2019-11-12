@@ -20,8 +20,5 @@ public class Main {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		}
-	public static void deletaFrame() {
-		frame.dispose();
-	}
 
 }

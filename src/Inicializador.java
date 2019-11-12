@@ -16,7 +16,8 @@ import javax.swing.JRadioButton;
 
 public class Inicializador extends JPanel implements ActionListener {
 
-
+	static JFrame jogo = new JFrame();
+	
 	public int getTipo_cobra() {
 		return tipo_cobra;
 	}
@@ -258,7 +259,7 @@ public class Inicializador extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e){
 	      
 
-				JFrame jogo = new JFrame();
+				
 				Painel painel =  new Painel(tipo_cobra, colisao_com_paredes);
 				
 				jogo.add(painel);	
@@ -278,6 +279,10 @@ public class Inicializador extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub	
+	}
+	
+	public static void deletaJogoFrame() {
+		jogo.dispose();
 	}
 }
 

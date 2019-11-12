@@ -1,11 +1,15 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Painel extends JPanel implements Runnable, KeyListener{
@@ -65,14 +69,32 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	public void stop() {
-		running = false;
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+			JFrame resultadoFrame = new JFrame();
+			JPanel resultado = new JPanel();
+			
+			resultadoFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			resultadoFrame.add(resultado);
+			resultadoFrame.setTitle("GAME OVER");
+
+			resultado.setPreferredSize(new Dimension(250,133));
+			resultadoFrame.setVisible(true);
+			resultado.setLayout(null);
+			
+			JLabel score_label = new JLabel("Score:  " + String.valueOf(score));
+			score_label.setFont(new Font("Tahoma", Font.BOLD, 18));
+			score_label.setBounds(80, 30, 200, 53);
+			resultado.add(score_label);
+
+			resultadoFrame.pack();
+			resultadoFrame.setLocationRelativeTo(null);
+			
+			running = false;
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	public void tick() {
@@ -95,27 +117,28 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 			if(snake.size() > size) {
 				snake.remove(0);
 			}		
-			
+	
+		
 		// GERADOR DE FRUTAS NORMAIS
 	
-			if(macas.size() == 0) {
-				int xCoor = r.nextInt(59);
-				int yCoor = r.nextInt(59);
+		if(macas.size() == 0) {
+			int xCoor = r.nextInt(59);
+			int yCoor = r.nextInt(59);
 
-				maca = new Fruta(xCoor, yCoor, 10, 1);
-				macas.add(maca);
-			}
+			maca = new Fruta(xCoor, yCoor, 10, 1);
+			macas.add(maca);
+		}
 
 		// GERADOR DE FRUTAS ESPECIAIS
-			if(powerup.size() == 0) {
-				int tipo_Power = tipoPower.nextInt(4 - 2 + 1) + 2;
+		if(powerup.size() == 0) {
+			int tipo_Power = tipoPower.nextInt(4 - 2 + 1) + 2;
 
-				int xCoor2 = p.nextInt(59);
-				int yCoor2 = p.nextInt(59);
+			int xCoor2 = p.nextInt(59);
+			int yCoor2 = p.nextInt(59);
 
-				especial = new Fruta(xCoor2, yCoor2, 10, tipo_Power);
-				powerup.add(especial);
-			}
+			especial = new Fruta(xCoor2, yCoor2, 10, tipo_Power);
+			powerup.add(especial);
+		}
 		
 		// COLISÃO COM FRUTAS NORMAIS
 		for (int i = 0; i < macas.size(); i++) {
@@ -194,7 +217,7 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 			}
 		}
 		
-	}
+}
 	
 	public void paint(Graphics g) {
 		g.clearRect(0, 0, LARGURA, ALTURA);
@@ -230,7 +253,6 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 	
 	@Override
 	public void run() {
-		
 		if(tipoCobra == 1 || tipoCobra == 2) {
 			FPS = 20;
 		}
@@ -292,4 +314,5 @@ public class Painel extends JPanel implements Runnable, KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
 }
